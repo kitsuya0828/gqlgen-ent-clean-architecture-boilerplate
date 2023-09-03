@@ -1,0 +1,14 @@
+database:
+  user: root
+  password: password
+  net: tcp
+  addr: 127.0.0.1:3306
+  dbname: gqlgen_ent_clean_architecture
+  allowNativePasswords: true
+  params:
+    parseTime: true
+    charset: utf8mb4
+    loc: Asia/Tokyo
+
+server:
+  address: 8080
