@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mysql:
+    ports:
+      - '3306:3306'
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password
+    environment:
+      TZ:  "/usr/share/zoneinfo/Asia/Tokyo" # wherever you want
+      MYSQL_ROOT_PASSWORD: password
+
+volumes:
+  mysql_data:
+    driver: local
