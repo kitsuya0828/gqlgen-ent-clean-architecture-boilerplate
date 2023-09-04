@@ -14,4 +14,4 @@ start:
 generate:
 	go generate .
 
-.PHONY: setup_db start generate
+.PHONY: setup_db migrate_schema start generate
