@@ -2,6 +2,8 @@
 
 A Clean Architecture boilerplate for Golang applications built with gqlgen and ent.
 
+<img src="./assets/logo.png" />
+
 # References
 * [gqlgen](https://gqlgen.com/)
     * [Getting Started](https://gqlgen.com/getting-started/)
