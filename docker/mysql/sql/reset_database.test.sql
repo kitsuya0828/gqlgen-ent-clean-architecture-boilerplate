@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS gqlgen_ent_clean_architecture_test;
+CREATE DATABASE gqlgen_ent_clean_architecture_test CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;

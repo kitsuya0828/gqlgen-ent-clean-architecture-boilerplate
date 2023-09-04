@@ -14,4 +14,12 @@ start:
 generate:
 	go generate .
 
+# Run test
+setup_test_db:
+	./bin/init_db_test.sh
+
+test_repository:
+	go test ./pkg/adapter/repository/...
+
+
 .PHONY: setup_db migrate_schema start generate
