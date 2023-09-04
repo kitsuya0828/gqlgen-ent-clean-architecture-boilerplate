@@ -1,18 +1,27 @@
-package environment
+package config
 
-import "os"
+import (
+	"os"
+)
 
 // Application Environment name
 const (
 	Development = "development"
+	Production  = "production"
 	Test        = "test"
 	E2E         = "e2e"
 )
 
 // IsDev returns APP_ENV in development mode
 func IsDev() bool {
-	println("os.Getenv(APP_ENV): ", os.Getenv("APP_ENV"))
+	// log.Printf("os.Getenv(APP_ENV): %s", os.Getenv("APP_ENV"))
 	return os.Getenv("APP_ENV") == Development
+}
+
+// IsProd returns APP_ENV in production mode
+func IsProd() bool {
+	// log.Printf("os.Getenv(APP_ENV): %s", os.Getenv("APP_ENV"))
+	return os.Getenv("APP_ENV") == Production
 }
 
 // IsTest returns APP_ENV in test mode

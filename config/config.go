@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path"
@@ -9,7 +8,6 @@ import (
 	"runtime"
 
 	"github.com/spf13/viper"
-	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/pkg/util/environment"
 )
 
 type config struct {
@@ -43,33 +41,31 @@ type ReadConfigOption struct {
 func ReadConfig(option ReadConfigOption) {
 	Config := &C
 
-	if environment.IsDev() {
+	if IsDev() {
 		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
-		viper.SetConfigName("config")
-	} else if environment.IsTest() || (option.AppEnv == environment.Test) {
-		fmt.Println(rootDir())
+		viper.SetConfigName("config.dev")
+	} else if IsProd() {
+		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
+		viper.SetConfigName("config.prod")
+	} else if IsTest() || (option.AppEnv == Test) {
 		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
 		viper.SetConfigName("config.test")
-	} else if environment.IsE2E() || (option.AppEnv == environment.E2E) {
-		fmt.Println(rootDir())
+	} else if IsE2E() || (option.AppEnv == E2E) {
 		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
 		viper.SetConfigName("config.e2e")
 	} else {
-		// production configuration here
-		fmt.Println("production configuration here")
+		log.Fatalf("failed to get APP_ENV: %s", os.Getenv("APP_ENV"))
 	}
 
 	viper.SetConfigType("yml")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println(err)
 		log.Fatalln(err)
 	}
 
 	if err := viper.Unmarshal(&Config); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatalln(err)
 	}
 }
 
