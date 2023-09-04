@@ -23,19 +23,34 @@ func (User) Fields() []ent.Field {
 			GoType(ulid.ID("")).
 			DefaultFunc(func() ulid.ID {
 				return ulid.MustNew("")
-			}),
+			}).
+			Annotations(
+				entgql.OrderField("ID"),
+			),
 		field.String("name").
 			NotEmpty().
-			MaxLen(255),
+			MaxLen(255).
+			Annotations(
+				entgql.OrderField("NAME"),
+			),
 		field.Int("age").
-			Positive(),
+			Positive().
+			Annotations(
+				entgql.OrderField("AGE"),
+			),
 		field.Time("created_at").
 			Default(time.Now).
-			Immutable(),
+			Immutable().
+			Annotations(
+				entgql.OrderField("CREATED_AT"),
+			),
 		field.Time("updated_at").
 			Default(time.Now).
 			UpdateDefault(time.Now).
-			Immutable(),
+			Immutable().
+			Annotations(
+				entgql.OrderField("UPDATED_AT"),
+			),
 	}
 }
 
@@ -51,6 +66,8 @@ func (User) Edges() []ent.Edge {
 // Annotations of the User.
 func (User) Annotations() []schema.Annotation {
     return []schema.Annotation{
+		entgql.MultiOrder(),
+		entgql.RelayConnection(),
         entgql.QueryField(),
         entgql.Mutations(entgql.MutationCreate(), entgql.MutationUpdate()),
     }

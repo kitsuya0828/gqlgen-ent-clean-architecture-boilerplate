@@ -40,3 +40,14 @@ func (r *userRepository) Update(ctx context.Context, id *model.ID, input model.U
 	}
 	return u, nil
 }
+
+func (r *userRepository) List(ctx context.Context, after *model.Cursor, first *int, before *model.Cursor, last *int, orderBy []*model.UserOrder, where *model.UserWhereInput) (*model.UserConnection, error) {
+	u, err := r.client.User.Query().Paginate(ctx, after, first, before, last,
+		ent.WithUserOrder(orderBy),
+		ent.WithUserFilter(where.Filter),
+	)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+}

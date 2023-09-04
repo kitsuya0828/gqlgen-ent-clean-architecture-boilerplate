@@ -30,6 +30,15 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, id ulid.ID, input ent
 	return u, nil
 }
 
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, id *ulid.ID) (*ent.User, error) {
+	u, err := r.controller.User.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+}
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 

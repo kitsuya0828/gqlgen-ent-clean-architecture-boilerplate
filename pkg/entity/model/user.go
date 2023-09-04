@@ -10,3 +10,12 @@ type CreateUserInput = ent.CreateUserInput
 
 // UpdateUserInput represents a mutation input for updating users.
 type UpdateUserInput = ent.UpdateUserInput
+
+// UserConnection is the connection containing edges to User.
+type UserConnection = ent.UserConnection
+
+// UserOrder is the order direction for User.
+type UserOrder = ent.UserOrder
+
+// UserWhereInput represents a where input for filtering User queries.
+type UserWhereInput = ent.UserWhereInput

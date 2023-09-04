@@ -1,5 +1,7 @@
 package ulid
 
+// reference: https://github.com/ent/contrib/blob/9e1dadfef7fa8ef9499e7eb72eef3daf57161b42/entgql/internal/todopulid/ent/schema/pulid/pulid.go
+
 import (
 	"crypto/rand"
 	"database/sql/driver"

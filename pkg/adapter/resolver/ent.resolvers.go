@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 
+	"entgo.io/contrib/entgql"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/graph/generated"
@@ -24,8 +25,12 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []ulid.ID) ([]ent.Noder, 
 }
 
 // Users is the resolver for the users field.
-func (r *queryResolver) Users(ctx context.Context) ([]*ent.User, error) {
-	return r.client.User.Query().All(ctx)
+func (r *queryResolver) Users(ctx context.Context, after *entgql.Cursor[ulid.ID], first *int, before *entgql.Cursor[ulid.ID], last *int, orderBy []*ent.UserOrder, where *ent.UserWhereInput) (*ent.UserConnection, error) {
+	us, err := r.controller.User.List(ctx, after, first, before, last, orderBy, where)
+	if err != nil {
+		return nil, err
+	}
+	return us, nil
 }
 
 // Query returns generated.QueryResolver implementation.
