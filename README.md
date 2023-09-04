@@ -4,6 +4,8 @@ A Clean Architecture boilerplate for Golang applications built with gqlgen and e
 
 <img src="./assets/logo.png" />
 
+[The Go gopher](https://go.dev/blog/gopher) was designed by [Renée French](https://www.instagram.com/reneefrench/).
+
 # References
 * [gqlgen](https://gqlgen.com/)
     * [Getting Started](https://gqlgen.com/getting-started/)
