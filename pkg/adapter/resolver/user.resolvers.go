@@ -8,8 +8,8 @@ import (
 	"context"
 
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/graph/generated"
-	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/pkg/entity/model"
 )
 
 // CreateUser is the resolver for the createUser field.
@@ -22,7 +22,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input ent.CreateUserI
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, id model.ID, input ent.UpdateUserInput) (*ent.User, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, id ulid.ID, input ent.UpdateUserInput) (*ent.User, error) {
 	u, err := r.controller.User.Update(ctx, &id, input)
 	if err != nil {
 		return nil, err

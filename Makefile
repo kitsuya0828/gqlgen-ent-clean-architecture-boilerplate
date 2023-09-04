@@ -12,7 +12,6 @@ start:
 
 # Generate code
 generate:
-	go run -mod=mod ./ent/entc.go
-	go run -mod=mod github.com/99designs/gqlgen
+	go generate .
 
 .PHONY: setup_db start generate

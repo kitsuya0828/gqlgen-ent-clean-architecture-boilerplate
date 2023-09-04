@@ -9,17 +9,17 @@ import (
 	"fmt"
 
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/graph/generated"
-	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/pkg/entity/model"
 )
 
 // Node is the resolver for the node field.
-func (r *queryResolver) Node(ctx context.Context, id model.ID) (ent.Noder, error) {
+func (r *queryResolver) Node(ctx context.Context, id ulid.ID) (ent.Noder, error) {
 	panic(fmt.Errorf("not implemented: Node - node"))
 }
 
 // Nodes is the resolver for the nodes field.
-func (r *queryResolver) Nodes(ctx context.Context, ids []model.ID) ([]ent.Noder, error) {
+func (r *queryResolver) Nodes(ctx context.Context, ids []ulid.ID) ([]ent.Noder, error) {
 	panic(fmt.Errorf("not implemented: Nodes - nodes"))
 }
 
