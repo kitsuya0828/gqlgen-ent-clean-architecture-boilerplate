@@ -12,6 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
@@ -2205,31 +2206,26 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNID2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql.UnmarshalIntID(v)
+func (ec *executionContext) unmarshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {
+	var res ulid.ID
+	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNID2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql.MarshalIntID(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
+func (ec *executionContext) marshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v ulid.ID) graphql.Marshaler {
+	return v
 }
 
-func (ec *executionContext) unmarshalNID2ᚕintᚄ(ctx context.Context, v interface{}) ([]int, error) {
+func (ec *executionContext) unmarshalNID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, v interface{}) ([]ulid.ID, error) {
 	var vSlice []interface{}
 	if v != nil {
 		vSlice = graphql.CoerceList(v)
 	}
 	var err error
-	res := make([]int, len(vSlice))
+	res := make([]ulid.ID, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNID2int(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -2237,10 +2233,10 @@ func (ec *executionContext) unmarshalNID2ᚕintᚄ(ctx context.Context, v interf
 	return res, nil
 }
 
-func (ec *executionContext) marshalNID2ᚕintᚄ(ctx context.Context, sel ast.SelectionSet, v []int) graphql.Marshaler {
+func (ec *executionContext) marshalNID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, sel ast.SelectionSet, v []ulid.ID) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	for i := range v {
-		ret[i] = ec.marshalNID2int(ctx, sel, v[i])
+		ret[i] = ec.marshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, sel, v[i])
 	}
 
 	for _, e := range ret {
@@ -2561,7 +2557,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) unmarshalOID2ᚕintᚄ(ctx context.Context, v interface{}) ([]int, error) {
+func (ec *executionContext) unmarshalOID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, v interface{}) ([]ulid.ID, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -2570,10 +2566,10 @@ func (ec *executionContext) unmarshalOID2ᚕintᚄ(ctx context.Context, v interf
 		vSlice = graphql.CoerceList(v)
 	}
 	var err error
-	res := make([]int, len(vSlice))
+	res := make([]ulid.ID, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNID2int(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -2581,13 +2577,13 @@ func (ec *executionContext) unmarshalOID2ᚕintᚄ(ctx context.Context, v interf
 	return res, nil
 }
 
-func (ec *executionContext) marshalOID2ᚕintᚄ(ctx context.Context, sel ast.SelectionSet, v []int) graphql.Marshaler {
+func (ec *executionContext) marshalOID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, sel ast.SelectionSet, v []ulid.ID) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	ret := make(graphql.Array, len(v))
 	for i := range v {
-		ret[i] = ec.marshalNID2int(ctx, sel, v[i])
+		ret[i] = ec.marshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, sel, v[i])
 	}
 
 	for _, e := range ret {
@@ -2599,19 +2595,35 @@ func (ec *executionContext) marshalOID2ᚕintᚄ(ctx context.Context, sel ast.Se
 	return ret
 }
 
-func (ec *executionContext) unmarshalOID2ᚖint(ctx context.Context, v interface{}) (*int, error) {
+func (ec *executionContext) unmarshalOID2ᚖgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (*ulid.ID, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := graphql.UnmarshalIntID(v)
-	return &res, graphql.ErrorOnPath(ctx, err)
+	var res = new(ulid.ID)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOID2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+func (ec *executionContext) marshalOID2ᚖgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v *ulid.ID) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	res := graphql.MarshalIntID(*v)
+	return v
+}
+
+func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v interface{}) (*int, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalInt(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	res := graphql.MarshalInt(*v)
 	return res
 }
 

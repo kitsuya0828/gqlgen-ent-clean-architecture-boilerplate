@@ -9,6 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/user"
 )
 
@@ -16,7 +17,7 @@ import (
 type User struct {
 	config `json:"-"`
 	// ID of the ent.
-	ID int `json:"id,omitempty"`
+	ID ulid.ID `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Age holds the value of the "age" field.
@@ -28,7 +29,7 @@ type User struct {
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges        UserEdges `json:"edges"`
-	user_parent  *int
+	user_parent  *ulid.ID
 	selectValues sql.SelectValues
 }
 
@@ -74,14 +75,16 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID, user.FieldAge:
+		case user.FieldAge:
 			values[i] = new(sql.NullInt64)
 		case user.FieldName:
 			values[i] = new(sql.NullString)
 		case user.FieldCreatedAt, user.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
+		case user.FieldID:
+			values[i] = new(ulid.ID)
 		case user.ForeignKeys[0]: // user_parent
-			values[i] = new(sql.NullInt64)
+			values[i] = &sql.NullScanner{S: new(ulid.ID)}
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -98,11 +101,11 @@ func (u *User) assignValues(columns []string, values []any) error {
 	for i := range columns {
 		switch columns[i] {
 		case user.FieldID:
-			value, ok := values[i].(*sql.NullInt64)
-			if !ok {
-				return fmt.Errorf("unexpected type %T for field id", value)
+			if value, ok := values[i].(*ulid.ID); !ok {
+				return fmt.Errorf("unexpected type %T for field id", values[i])
+			} else if value != nil {
+				u.ID = *value
 			}
-			u.ID = int(value.Int64)
 		case user.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
@@ -128,11 +131,11 @@ func (u *User) assignValues(columns []string, values []any) error {
 				u.UpdatedAt = value.Time
 			}
 		case user.ForeignKeys[0]:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for edge-field user_parent", value)
+			if value, ok := values[i].(*sql.NullScanner); !ok {
+				return fmt.Errorf("unexpected type %T for field user_parent", values[i])
 			} else if value.Valid {
-				u.user_parent = new(int)
-				*u.user_parent = int(value.Int64)
+				u.user_parent = new(ulid.ID)
+				*u.user_parent = *value.S.(*ulid.ID)
 			}
 		default:
 			u.selectValues.Set(columns[i], values[i])

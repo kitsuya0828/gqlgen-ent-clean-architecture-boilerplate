@@ -15,14 +15,15 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
 // region    ************************** generated!.gotpl **************************
 
 type QueryResolver interface {
-	Node(ctx context.Context, id int) (ent.Noder, error)
-	Nodes(ctx context.Context, ids []int) ([]ent.Noder, error)
+	Node(ctx context.Context, id ulid.ID) (ent.Noder, error)
+	Nodes(ctx context.Context, ids []ulid.ID) ([]ent.Noder, error)
 	Users(ctx context.Context) ([]*ent.User, error)
 }
 
@@ -48,10 +49,10 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 func (ec *executionContext) field_Query_node_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 int
+	var arg0 ulid.ID
 	if tmp, ok := rawArgs["id"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-		arg0, err = ec.unmarshalNID2int(ctx, tmp)
+		arg0, err = ec.unmarshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -63,10 +64,10 @@ func (ec *executionContext) field_Query_node_args(ctx context.Context, rawArgs m
 func (ec *executionContext) field_Query_nodes_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 []int
+	var arg0 []ulid.ID
 	if tmp, ok := rawArgs["ids"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ids"))
-		arg0, err = ec.unmarshalNID2ᚕintᚄ(ctx, tmp)
+		arg0, err = ec.unmarshalNID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +84,7 @@ func (ec *executionContext) field_Query_nodes_args(ctx context.Context, rawArgs 
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[int]) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[ulid.ID]) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_hasNextPage(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -127,7 +128,7 @@ func (ec *executionContext) fieldContext_PageInfo_hasNextPage(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[int]) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[ulid.ID]) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_hasPreviousPage(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -171,7 +172,7 @@ func (ec *executionContext) fieldContext_PageInfo_hasPreviousPage(ctx context.Co
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[int]) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[ulid.ID]) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_startCursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -194,7 +195,7 @@ func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*entgql.Cursor[int])
+	res := resTmp.(*entgql.Cursor[ulid.ID])
 	fc.Result = res
 	return ec.marshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx, field.Selections, res)
 }
@@ -212,7 +213,7 @@ func (ec *executionContext) fieldContext_PageInfo_startCursor(ctx context.Contex
 	return fc, nil
 }
 
-func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[int]) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *entgql.PageInfo[ulid.ID]) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_PageInfo_endCursor(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -235,7 +236,7 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*entgql.Cursor[int])
+	res := resTmp.(*entgql.Cursor[ulid.ID])
 	fc.Result = res
 	return ec.marshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx, field.Selections, res)
 }
@@ -267,7 +268,7 @@ func (ec *executionContext) _Query_node(ctx context.Context, field graphql.Colle
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Node(rctx, fc.Args["id"].(int))
+		return ec.resolvers.Query().Node(rctx, fc.Args["id"].(ulid.ID))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -319,7 +320,7 @@ func (ec *executionContext) _Query_nodes(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Nodes(rctx, fc.Args["ids"].([]int))
+		return ec.resolvers.Query().Nodes(rctx, fc.Args["ids"].([]ulid.ID))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -575,9 +576,9 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int)
+	res := resTmp.(ulid.ID)
 	fc.Result = res
-	return ec.marshalNID2int(ctx, field.Selections, res)
+	return ec.marshalNID2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -941,7 +942,7 @@ func (ec *executionContext) unmarshalInputCreateUserInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("childIDs"))
-			data, err := ec.unmarshalOID2ᚕintᚄ(ctx, v)
+			data, err := ec.unmarshalOID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -950,11 +951,94 @@ func (ec *executionContext) unmarshalInputCreateUserInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("parentID"))
-			data, err := ec.unmarshalOID2ᚖint(ctx, v)
+			data, err := ec.unmarshalOID2ᚖgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
 			it.ParentID = data
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputUpdateUserInput(ctx context.Context, obj interface{}) (ent.UpdateUserInput, error) {
+	var it ent.UpdateUserInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"name", "age", "addChildIDs", "removeChildIDs", "clearChildren", "parentID", "clearParent"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "name":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Name = data
+		case "age":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("age"))
+			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Age = data
+		case "addChildIDs":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("addChildIDs"))
+			data, err := ec.unmarshalOID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AddChildIDs = data
+		case "removeChildIDs":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("removeChildIDs"))
+			data, err := ec.unmarshalOID2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.RemoveChildIDs = data
+		case "clearChildren":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clearChildren"))
+			data, err := ec.unmarshalOBoolean2bool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ClearChildren = data
+		case "parentID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("parentID"))
+			data, err := ec.unmarshalOID2ᚖgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚋschemaᚋulidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ParentID = data
+		case "clearParent":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clearParent"))
+			data, err := ec.unmarshalOBoolean2bool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ClearParent = data
 		}
 	}
 
@@ -985,7 +1069,7 @@ func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj
 
 var pageInfoImplementors = []string{"PageInfo"}
 
-func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *entgql.PageInfo[int]) graphql.Marshaler {
+func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *entgql.PageInfo[ulid.ID]) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pageInfoImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -1273,6 +1357,11 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 
 // region    ***************************** type.gotpl *****************************
 
+func (ec *executionContext) unmarshalNCreateUserInput2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚐCreateUserInput(ctx context.Context, v interface{}) (ent.CreateUserInput, error) {
+	res, err := ec.unmarshalInputCreateUserInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚐNoder(ctx context.Context, sel ast.SelectionSet, v []ent.Noder) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -1324,6 +1413,15 @@ func (ec *executionContext) marshalNTime2timeᚐTime(ctx context.Context, sel as
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) unmarshalNUpdateUserInput2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚐUpdateUserInput(ctx context.Context, v interface{}) (ent.UpdateUserInput, error) {
+	res, err := ec.unmarshalInputUpdateUserInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNUser2githubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
+	return ec._User(ctx, sel, &v)
 }
 
 func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋKitsuya0828ᚋgqlgenᚑentᚑcleanᚑarchitectureᚑboilerplateᚋentᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.User) graphql.Marshaler {
@@ -1380,16 +1478,16 @@ func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋKitsuya0828ᚋgqlgen�
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx context.Context, v interface{}) (*entgql.Cursor[int], error) {
+func (ec *executionContext) unmarshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx context.Context, v interface{}) (*entgql.Cursor[ulid.ID], error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(entgql.Cursor[int])
+	var res = new(entgql.Cursor[ulid.ID])
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx context.Context, sel ast.SelectionSet, v *entgql.Cursor[int]) graphql.Marshaler {
+func (ec *executionContext) marshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx context.Context, sel ast.SelectionSet, v *entgql.Cursor[ulid.ID]) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

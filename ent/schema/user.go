@@ -8,6 +8,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 )
 
 // User holds the schema definition for the User entity.
@@ -18,6 +19,11 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
+		field.String("id").
+			GoType(ulid.ID("")).
+			DefaultFunc(func() ulid.ID {
+				return ulid.MustNew("")
+			}),
 		field.String("name").
 			NotEmpty().
 			MaxLen(255),
@@ -46,6 +52,6 @@ func (User) Edges() []ent.Edge {
 func (User) Annotations() []schema.Annotation {
     return []schema.Annotation{
         entgql.QueryField(),
-        entgql.Mutations(entgql.MutationCreate()),
+        entgql.Mutations(entgql.MutationCreate(), entgql.MutationUpdate()),
     }
 }

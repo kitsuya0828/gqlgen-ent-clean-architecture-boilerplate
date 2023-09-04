@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/predicate"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/user"
 )
 
@@ -47,14 +48,14 @@ func (uu *UserUpdate) AddAge(i int) *UserUpdate {
 }
 
 // AddChildIDs adds the "children" edge to the User entity by IDs.
-func (uu *UserUpdate) AddChildIDs(ids ...int) *UserUpdate {
+func (uu *UserUpdate) AddChildIDs(ids ...ulid.ID) *UserUpdate {
 	uu.mutation.AddChildIDs(ids...)
 	return uu
 }
 
 // AddChildren adds the "children" edges to the User entity.
 func (uu *UserUpdate) AddChildren(u ...*User) *UserUpdate {
-	ids := make([]int, len(u))
+	ids := make([]ulid.ID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
@@ -62,13 +63,13 @@ func (uu *UserUpdate) AddChildren(u ...*User) *UserUpdate {
 }
 
 // SetParentID sets the "parent" edge to the User entity by ID.
-func (uu *UserUpdate) SetParentID(id int) *UserUpdate {
+func (uu *UserUpdate) SetParentID(id ulid.ID) *UserUpdate {
 	uu.mutation.SetParentID(id)
 	return uu
 }
 
 // SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (uu *UserUpdate) SetNillableParentID(id *int) *UserUpdate {
+func (uu *UserUpdate) SetNillableParentID(id *ulid.ID) *UserUpdate {
 	if id != nil {
 		uu = uu.SetParentID(*id)
 	}
@@ -92,14 +93,14 @@ func (uu *UserUpdate) ClearChildren() *UserUpdate {
 }
 
 // RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (uu *UserUpdate) RemoveChildIDs(ids ...int) *UserUpdate {
+func (uu *UserUpdate) RemoveChildIDs(ids ...ulid.ID) *UserUpdate {
 	uu.mutation.RemoveChildIDs(ids...)
 	return uu
 }
 
 // RemoveChildren removes "children" edges to User entities.
 func (uu *UserUpdate) RemoveChildren(u ...*User) *UserUpdate {
-	ids := make([]int, len(u))
+	ids := make([]ulid.ID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
@@ -167,7 +168,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if err := uu.check(); err != nil {
 		return n, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeString))
 	if ps := uu.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -195,7 +196,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -208,7 +209,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -224,7 +225,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -240,7 +241,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -253,7 +254,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -301,14 +302,14 @@ func (uuo *UserUpdateOne) AddAge(i int) *UserUpdateOne {
 }
 
 // AddChildIDs adds the "children" edge to the User entity by IDs.
-func (uuo *UserUpdateOne) AddChildIDs(ids ...int) *UserUpdateOne {
+func (uuo *UserUpdateOne) AddChildIDs(ids ...ulid.ID) *UserUpdateOne {
 	uuo.mutation.AddChildIDs(ids...)
 	return uuo
 }
 
 // AddChildren adds the "children" edges to the User entity.
 func (uuo *UserUpdateOne) AddChildren(u ...*User) *UserUpdateOne {
-	ids := make([]int, len(u))
+	ids := make([]ulid.ID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
@@ -316,13 +317,13 @@ func (uuo *UserUpdateOne) AddChildren(u ...*User) *UserUpdateOne {
 }
 
 // SetParentID sets the "parent" edge to the User entity by ID.
-func (uuo *UserUpdateOne) SetParentID(id int) *UserUpdateOne {
+func (uuo *UserUpdateOne) SetParentID(id ulid.ID) *UserUpdateOne {
 	uuo.mutation.SetParentID(id)
 	return uuo
 }
 
 // SetNillableParentID sets the "parent" edge to the User entity by ID if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableParentID(id *int) *UserUpdateOne {
+func (uuo *UserUpdateOne) SetNillableParentID(id *ulid.ID) *UserUpdateOne {
 	if id != nil {
 		uuo = uuo.SetParentID(*id)
 	}
@@ -346,14 +347,14 @@ func (uuo *UserUpdateOne) ClearChildren() *UserUpdateOne {
 }
 
 // RemoveChildIDs removes the "children" edge to User entities by IDs.
-func (uuo *UserUpdateOne) RemoveChildIDs(ids ...int) *UserUpdateOne {
+func (uuo *UserUpdateOne) RemoveChildIDs(ids ...ulid.ID) *UserUpdateOne {
 	uuo.mutation.RemoveChildIDs(ids...)
 	return uuo
 }
 
 // RemoveChildren removes "children" edges to User entities.
 func (uuo *UserUpdateOne) RemoveChildren(u ...*User) *UserUpdateOne {
-	ids := make([]int, len(u))
+	ids := make([]ulid.ID, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
@@ -434,7 +435,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	if err := uuo.check(); err != nil {
 		return _node, err
 	}
-	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
+	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeString))
 	id, ok := uuo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
@@ -479,7 +480,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -492,7 +493,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -508,7 +509,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Columns: []string{user.ChildrenColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {
@@ -524,7 +525,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
@@ -537,7 +538,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Columns: []string{user.ParentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
-				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt),
+				IDSpec: sqlgraph.NewFieldSpec(user.FieldID, field.TypeString),
 			},
 		}
 		for _, k := range nodes {

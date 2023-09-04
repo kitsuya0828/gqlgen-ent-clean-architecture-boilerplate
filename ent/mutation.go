@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/predicate"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/user"
 )
 
@@ -32,17 +33,17 @@ type UserMutation struct {
 	config
 	op              Op
 	typ             string
-	id              *int
+	id              *ulid.ID
 	name            *string
 	age             *int
 	addage          *int
 	created_at      *time.Time
 	updated_at      *time.Time
 	clearedFields   map[string]struct{}
-	children        map[int]struct{}
-	removedchildren map[int]struct{}
+	children        map[ulid.ID]struct{}
+	removedchildren map[ulid.ID]struct{}
 	clearedchildren bool
-	parent          *int
+	parent          *ulid.ID
 	clearedparent   bool
 	done            bool
 	oldValue        func(context.Context) (*User, error)
@@ -69,7 +70,7 @@ func newUserMutation(c config, op Op, opts ...userOption) *UserMutation {
 }
 
 // withUserID sets the ID field of the mutation.
-func withUserID(id int) userOption {
+func withUserID(id ulid.ID) userOption {
 	return func(m *UserMutation) {
 		var (
 			err   error
@@ -119,9 +120,15 @@ func (m UserMutation) Tx() (*Tx, error) {
 	return tx, nil
 }
 
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of User entities.
+func (m *UserMutation) SetID(id ulid.ID) {
+	m.id = &id
+}
+
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *UserMutation) ID() (id int, exists bool) {
+func (m *UserMutation) ID() (id ulid.ID, exists bool) {
 	if m.id == nil {
 		return
 	}
@@ -132,12 +139,12 @@ func (m *UserMutation) ID() (id int, exists bool) {
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *UserMutation) IDs(ctx context.Context) ([]int, error) {
+func (m *UserMutation) IDs(ctx context.Context) ([]ulid.ID, error) {
 	switch {
 	case m.op.Is(OpUpdateOne | OpDeleteOne):
 		id, exists := m.ID()
 		if exists {
-			return []int{id}, nil
+			return []ulid.ID{id}, nil
 		}
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
@@ -312,9 +319,9 @@ func (m *UserMutation) ResetUpdatedAt() {
 }
 
 // AddChildIDs adds the "children" edge to the User entity by ids.
-func (m *UserMutation) AddChildIDs(ids ...int) {
+func (m *UserMutation) AddChildIDs(ids ...ulid.ID) {
 	if m.children == nil {
-		m.children = make(map[int]struct{})
+		m.children = make(map[ulid.ID]struct{})
 	}
 	for i := range ids {
 		m.children[ids[i]] = struct{}{}
@@ -332,9 +339,9 @@ func (m *UserMutation) ChildrenCleared() bool {
 }
 
 // RemoveChildIDs removes the "children" edge to the User entity by IDs.
-func (m *UserMutation) RemoveChildIDs(ids ...int) {
+func (m *UserMutation) RemoveChildIDs(ids ...ulid.ID) {
 	if m.removedchildren == nil {
-		m.removedchildren = make(map[int]struct{})
+		m.removedchildren = make(map[ulid.ID]struct{})
 	}
 	for i := range ids {
 		delete(m.children, ids[i])
@@ -343,7 +350,7 @@ func (m *UserMutation) RemoveChildIDs(ids ...int) {
 }
 
 // RemovedChildren returns the removed IDs of the "children" edge to the User entity.
-func (m *UserMutation) RemovedChildrenIDs() (ids []int) {
+func (m *UserMutation) RemovedChildrenIDs() (ids []ulid.ID) {
 	for id := range m.removedchildren {
 		ids = append(ids, id)
 	}
@@ -351,7 +358,7 @@ func (m *UserMutation) RemovedChildrenIDs() (ids []int) {
 }
 
 // ChildrenIDs returns the "children" edge IDs in the mutation.
-func (m *UserMutation) ChildrenIDs() (ids []int) {
+func (m *UserMutation) ChildrenIDs() (ids []ulid.ID) {
 	for id := range m.children {
 		ids = append(ids, id)
 	}
@@ -366,7 +373,7 @@ func (m *UserMutation) ResetChildren() {
 }
 
 // SetParentID sets the "parent" edge to the User entity by id.
-func (m *UserMutation) SetParentID(id int) {
+func (m *UserMutation) SetParentID(id ulid.ID) {
 	m.parent = &id
 }
 
@@ -381,7 +388,7 @@ func (m *UserMutation) ParentCleared() bool {
 }
 
 // ParentID returns the "parent" edge ID in the mutation.
-func (m *UserMutation) ParentID() (id int, exists bool) {
+func (m *UserMutation) ParentID() (id ulid.ID, exists bool) {
 	if m.parent != nil {
 		return *m.parent, true
 	}
@@ -391,7 +398,7 @@ func (m *UserMutation) ParentID() (id int, exists bool) {
 // ParentIDs returns the "parent" edge IDs in the mutation.
 // Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
 // ParentID instead. It exists only for internal usage by the builders.
-func (m *UserMutation) ParentIDs() (ids []int) {
+func (m *UserMutation) ParentIDs() (ids []ulid.ID) {
 	if id := m.parent; id != nil {
 		ids = append(ids, *id)
 	}
