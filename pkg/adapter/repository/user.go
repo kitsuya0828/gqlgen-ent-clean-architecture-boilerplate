@@ -51,3 +51,7 @@ func (r *userRepository) List(ctx context.Context, after *model.Cursor, first *i
 	}
 	return u, nil
 }
+
+func (r *userRepository) Delete(ctx context.Context, id *model.ID) error {
+	return r.client.User.DeleteOneID(*id).Exec(ctx)
+}
