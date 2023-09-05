@@ -9,6 +9,7 @@ database:
     parseTime: true
     charset: utf8mb4
     loc: Asia/Tokyo
+    tls: false
 
 server:
   address: 8080

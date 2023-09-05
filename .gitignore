@@ -1,2 +1,2 @@
 tmp/
-config/config.prod.yml
+config/prod.env

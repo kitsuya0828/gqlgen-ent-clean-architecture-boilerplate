@@ -20,7 +20,9 @@ func NewDSN() string {
 			"parseTime": config.C.Database.Params.ParseTime,
 			"charset":   config.C.Database.Params.Charset,
 			"loc":       config.C.Database.Params.Loc,
+			"tls":       config.C.Database.Params.TLS,
 		},
+		InterpolateParams: true,
 	}
 
 	return mc.FormatDSN()

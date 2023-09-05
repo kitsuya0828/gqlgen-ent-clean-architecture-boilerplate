@@ -22,6 +22,7 @@ type config struct {
 			ParseTime string
 			Charset   string
 			Loc       string
+			TLS       string
 		}
 	}
 	Server struct {
@@ -41,27 +42,37 @@ type ReadConfigOption struct {
 func ReadConfig(option ReadConfigOption) {
 	Config := &C
 
-	if IsDev() {
-		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
-		viper.SetConfigName("config.dev")
-	} else if IsProd() {
-		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
-		viper.SetConfigName("config.prod")
-	} else if IsTest() || (option.AppEnv == Test) {
-		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
-		viper.SetConfigName("config.test")
-	} else if IsE2E() || (option.AppEnv == E2E) {
-		viper.AddConfigPath(filepath.Join(rootDir(), "config"))
-		viper.SetConfigName("config.e2e")
+	if IsProd() {
+		viper.BindEnv("Database.User", "DATABASE_USER")
+		viper.BindEnv("Database.Password", "DATABASE_PASSWORD")
+		viper.BindEnv("Database.Net", "DATABASE_NET")
+		viper.BindEnv("Database.Addr", "DATABASE_ADDR")
+		viper.BindEnv("Database.DBName", "DATABASE_DBNAME")
+		viper.BindEnv("Database.AllowNativePasswords", "DATABASE_ALLOWNATIVEPASSWORDS")
+		viper.BindEnv("Database.Params.ParseTime", "DATABASE_PARAMS_PARSETIME")
+		viper.BindEnv("Database.Params.Charset", "DATABASE_PARAMS_CHARSET")
+		viper.BindEnv("Database.Params.Loc", "DATABASE_PARAMS_LOC")
+		viper.BindEnv("Database.Params.TLS", "DATABASE_PARAMS_TLS")
+		viper.BindEnv("Server.Address", "SERVER_ADDRESS")
 	} else {
-		log.Fatalf("failed to get APP_ENV: %s", os.Getenv("APP_ENV"))
-	}
+		if IsDev() {
+			viper.AddConfigPath(filepath.Join(rootDir(), "config"))
+			viper.SetConfigName("config.dev")
+		} else if IsTest() || (option.AppEnv == Test) {
+			viper.AddConfigPath(filepath.Join(rootDir(), "config"))
+			viper.SetConfigName("config.test")
+		} else if IsE2E() || (option.AppEnv == E2E) {
+			viper.AddConfigPath(filepath.Join(rootDir(), "config"))
+			viper.SetConfigName("config.e2e")
+		} else {
+			log.Fatalf("failed to get APP_ENV: %s", os.Getenv("APP_ENV"))
+		}
+		viper.SetConfigType("yml")
+		viper.AutomaticEnv()
 
-	viper.SetConfigType("yml")
-	viper.AutomaticEnv()
-
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalln(err)
+		if err := viper.ReadInConfig(); err != nil {
+			log.Fatalln(err)
+		}
 	}
 
 	if err := viper.Unmarshal(&Config); err != nil {

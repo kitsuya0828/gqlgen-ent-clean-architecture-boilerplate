@@ -9,13 +9,13 @@ import (
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/config"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/migrate"
-	"github.com/go-sql-driver/mysql"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/pkg/infrastructure/datastore"
 )
 
 func main() {
 	config.ReadConfig(config.ReadConfigOption{})
 
-	d := newDSN()
+	d := datastore.NewDSN()
 	client, err := ent.Open(dialect.MySQL, d)
 	if err != nil {
 		log.Fatalf("failed to open mysql client: %v", err)
@@ -36,21 +36,4 @@ func main() {
 	if err := client.Debug().Schema.Create(ctx, migrateOptions...); err != nil {
 		log.Fatalf("failed to create schema resources: %v", err)
 	}
-}
-
-func newDSN() string {
-	mc := mysql.Config{
-		User:                 config.C.Database.User,
-		Passwd:               config.C.Database.Password,
-		Net:                  config.C.Database.Net,
-		Addr:                 config.C.Database.Addr,
-		DBName:               config.C.Database.DBName,
-		AllowNativePasswords: config.C.Database.AllowNativePasswords,
-		Params: map[string]string{
-			"parseTime": config.C.Database.Params.ParseTime,
-			"charset":   config.C.Database.Params.Charset,
-			"loc":       config.C.Database.Params.Loc,
-		},
-	}
-	return mc.FormatDSN()
 }
