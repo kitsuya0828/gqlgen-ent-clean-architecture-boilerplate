@@ -28,4 +28,4 @@ setup_e2e_db:
 e2e:
 	go test ./test/e2e/...
 
-.PHONY: setup_db migrate_schema start generate
+.PHONY: setup_db migrate_schema start generate setup_test_db test_repository setup_e2e_db e2e
