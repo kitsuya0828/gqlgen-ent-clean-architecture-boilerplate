@@ -4,7 +4,7 @@ A Clean Architecture boilerplate for Golang applications built with gqlgen and e
 
 This boilerplate is inspired by [Clean Architecture with ent and gqlgen \| by Manato Kuroda \| Better Programming](https://betterprogramming.pub/clean-architecture-with-ent-and-gqlgen-a789933a3665), but with some original customizations based on the [official docs of ent.](https://entgo.io/ja/docs/tutorial-todo-gql).
 
-<img src="./assets/logo.png" />
+<img src="./assets/logo_compressed.png" />
 
 [The Go gopher](https://go.dev/blog/gopher) was designed by [Renée French](https://www.instagram.com/reneefrench/).
 
