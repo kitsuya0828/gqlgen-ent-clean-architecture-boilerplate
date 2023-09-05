@@ -55,10 +55,11 @@ func (i *ID) Scan(src interface{}) error {
 	case []byte:
 		str := string(s)
 		*i = ID(str)
+	case ID:
+		*i = s
 	default:
-		return fmt.Errorf("ulid: expected a string %v", s)
+		return fmt.Errorf("ulid: unexpected type, %T", s)
 	}
-
 	return nil
 }
 

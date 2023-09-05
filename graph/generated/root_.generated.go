@@ -596,7 +596,8 @@ input UserWhereInput {
 }
 
 extend type Query {
-    user(id: ID): User
-}`, BuiltIn: false},
+  user(id: ID): User
+}
+`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)

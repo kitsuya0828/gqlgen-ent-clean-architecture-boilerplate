@@ -6,7 +6,6 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
 	"entgo.io/contrib/entgql"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent"
@@ -16,12 +15,20 @@ import (
 
 // Node is the resolver for the node field.
 func (r *queryResolver) Node(ctx context.Context, id ulid.ID) (ent.Noder, error) {
-	panic(fmt.Errorf("not implemented: Node - node"))
+	n, err := r.client.Noder(ctx, id, ent.WithNodeType(ent.IDToType))
+	if err != nil {
+		return nil, err
+	}
+	return n, nil
 }
 
 // Nodes is the resolver for the nodes field.
 func (r *queryResolver) Nodes(ctx context.Context, ids []ulid.ID) ([]ent.Noder, error) {
-	panic(fmt.Errorf("not implemented: Nodes - nodes"))
+	n, err := r.client.Noders(ctx, ids, ent.WithNodeType(ent.IDToType))
+	if err != nil {
+		return nil, err
+	}
+	return n, nil
 }
 
 // Users is the resolver for the users field.

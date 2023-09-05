@@ -6,6 +6,7 @@ require (
 	entgo.io/contrib v0.4.6-0.20230725054517-9e1dadfef7fa
 	entgo.io/ent v0.12.3
 	github.com/99designs/gqlgen v0.17.36
+	github.com/gavv/httpexpect/v2 v2.15.0
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/labstack/echo/v4 v4.11.1
 	github.com/oklog/ulid/v2 v2.1.0
@@ -20,11 +21,11 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
-	github.com/gavv/httpexpect/v2 v2.15.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.3 // indirect
+	github.com/hpcloud/tail v1.0.0 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
@@ -38,6 +39,8 @@ require (
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	golang.org/x/sync v0.3.0 // indirect
+	gopkg.in/fsnotify.v1 v1.4.7 // indirect
+	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	moul.io/http2curl/v2 v2.3.0 // indirect
 )
 

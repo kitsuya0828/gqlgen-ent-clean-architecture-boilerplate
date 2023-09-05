@@ -9,6 +9,7 @@ import (
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/ent/schema/ulid"
+	"github.com/Kitsuya0828/gqlgen-ent-clean-architecture-boilerplate/pkg/const/globalid"
 )
 
 // User holds the schema definition for the User entity.
@@ -22,7 +23,7 @@ func (User) Fields() []ent.Field {
 		field.String("id").
 			GoType(ulid.ID("")).
 			DefaultFunc(func() ulid.ID {
-				return ulid.MustNew("")
+				return ulid.MustNew(globalid.New().User.Prefix)
 			}).
 			Annotations(
 				entgql.OrderField("ID"),
